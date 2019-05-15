@@ -1,5 +1,6 @@
 package com.xiehao.gym.controller;
 
+import com.xiehao.gym.configuration.ApiVersion;
 import com.xiehao.gym.domain.Account;
 import com.xiehao.gym.domain.Info;
 import com.xiehao.gym.service.AccountServer;
@@ -16,9 +17,11 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
+@RequestMapping("/{version}")
 @Controller
 public class GymController {
     private GymService gymService;
+
 
     @Autowired
     private AccountServer accountServer;
@@ -86,7 +89,6 @@ public class GymController {
         return "get_detail";
     }
 
-
     //获取修改用户信息的界面
     @RequestMapping(value={"/updata_info"},method = RequestMethod.GET)
     public String updata_info(String username,Map<String, Account> map){
@@ -94,6 +96,14 @@ public class GymController {
         map.put("user",a);
         return "account_updata";
     }
+
+    //测试版本控制的链接
+    @RequestMapping(value={"/vertion_test"},method = RequestMethod.GET)
+    public String vertion_test(Map<String, String> map){
+        map.put("vertion","v1");
+        return "vertion_test";
+    }
+
 
     @RequestMapping(value={"","/","/index"},method = RequestMethod.POST)
     public String login(@Valid Account account, BindingResult bindingResult,Model model){
