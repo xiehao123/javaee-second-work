@@ -71,4 +71,23 @@ public class GymServiceImpl implements GymService {
         return ac.getPassword()+"#"+ac.getMobileNumber()+"#"+ac.getAddress();
     }
 
+    @Override
+    public List<Account> getall() {
+        List<Account> all = repository.getall();
+        System.out.println(all);
+        return all;
+    }
+
+    @Override
+    public Account get_detail(String username) {
+        Account a = repository.get_account(username);
+        return a;
+    }
+
+    @Override
+    public Account update_detail(Account a) {
+        repository.updata_account(a.getUsername(),a.getMobileNumber(),a.getAddress(),a.getPassword());
+        Account b = get_detail(a.getUsername());
+        return b;
+    }
 }

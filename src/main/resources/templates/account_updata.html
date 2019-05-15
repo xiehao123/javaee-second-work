@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>修改信息</title>
+</head>
+<body>
+<h1 th:text = "'用户'+${user.username}+'的详细信息修改'"></h1>
+<table>
+    <thead>
+    <tr>
+        <th>
+            用户名
+        </th>
+        <th>
+            手机
+        </th>
+        <th>
+            通信地址
+        </th>
+        <th>
+            密码
+        </th>
+        <th>
+
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--<form action="/account" method="PUT">-->
+        <tr>
+            <td><input disabled type = "text" name ="username" th:value = "${user.username}" th:placeholder = "${user.username}" id="1"/></td>
+            <td><input type = "text" name = "mobileNumber" th:placeholder = "${user.mobileNumber}" id="2"/></td>
+            <td><input type = "text" name = "address" th:placeholder = "${user.address}" id="3"/></td>
+            <td><input type = "text" name = "password" th:placeholder = "${user.password}" id="4"/></td>
+            <td><input type = "button" onclick="putdata()" value = "提交"/></td>
+        </tr>
+    <!--</form>-->
+    </tbody>
+</table>
+
+<script type="text/javascript" src="../static/js/jquery-2.1.4.min.js" th:src="@{js/jquery-2.1.4.min.js}"></script>
+
+<script>
+    function putdata(){
+        var test1 = document.getElementById("1").value;
+        var test2 = document.getElementById("2").value;
+        var test3 = document.getElementById("3").value;
+        var test4 = document.getElementById("4").value;
+        $.ajax({
+            url: '/account',
+            type: 'PUT',
+            data: {username:test1,mobile:test2,address:test3,password:test4}
+        });
+        window.open("/account?username="+test1);
+    }
+</script>
+
+
+
+</body>
+</html>

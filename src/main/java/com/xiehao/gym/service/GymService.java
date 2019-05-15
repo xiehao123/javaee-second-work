@@ -14,4 +14,7 @@ public interface GymService {
     public Boolean register(Account account);
     public Page<Info> search(int pageNum, int pageSize, String coachname);
     public String searchAccount(String username);
+    public List<Account> getall();
+    public Account get_detail(String username);
+    public Account update_detail(Account a);
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>用户详细信息</title>
+</head>
+<body>
+    <h1 th:text = "'用户'+${user.username}+'的详细信息'"></h1>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    用户名
+                </th>
+                <th>
+                    手机
+                </th>
+                <th>
+                    通信地址
+                </th>
+                <th>
+                    密码
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text = "${user.username}"></td>
+            <td th:text = "${user.mobileNumber}"></td>
+            <td th:text = "${user.address}"></td>
+            <td th:text = "${user.password}"></td>
+            <td><button ><a th:href="@{'/updata_info?username='+${user.username}}">修改信息</a></button></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

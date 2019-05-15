@@ -2,6 +2,7 @@ package com.xiehao.gym.controller;
 
 import com.xiehao.gym.domain.Account;
 import com.xiehao.gym.domain.Info;
+import com.xiehao.gym.service.AccountServer;
 import com.xiehao.gym.service.GymService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -13,10 +14,15 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class GymController {
     private GymService gymService;
+
+    @Autowired
+    private AccountServer accountServer;
+
     Boolean online=false;
 
     @Autowired
@@ -30,6 +36,63 @@ public class GymController {
             model.addAttribute("show","true");
         }
         return "index";
+    }
+
+    @RequestMapping(value={"/see_account"},method = RequestMethod.GET)
+    public String see_account(Map<String, List<Account>> map){
+        List<Account> alluser = gymService.getall();
+        map.put("alluser",alluser);
+        return "see_account";
+    }
+
+
+    //对用户的账号信息的获取
+    @RequestMapping(value={"/account"},method = RequestMethod.GET)
+    public String get_detail(String username,Map<String, Account> map){
+        Account a = gymService.get_detail(username);
+        map.put("user",a);
+        return "get_detail";
+    }
+
+    //对用户账号信息的更新
+    @RequestMapping(value={"/account"},method = RequestMethod.PUT)
+    public String updata(String username,String mobile,String address,String password,Map<String, Account> map){
+        //对账户信息进行修改
+        Account b = gymService.get_detail(username);
+
+        if(mobile.length() >0){
+            b.setMobileNumber(mobile);
+            System.out.println("1");
+        }
+        if(address.length() >0){
+            b.setAddress(address);
+            System.out.println("2");
+        }
+        if(password.length()>0){
+            b.setPassword(password);
+            System.out.println("3");
+        }
+        accountServer.updateAccount(b);
+        map.put("user",b);
+        return "get_detail";
+    }
+
+    //删除用户账户
+    @RequestMapping(value={"/account"},method = RequestMethod.DELETE)
+    public String delete(String username,Map<String, Account> map){
+        Account b = gymService.get_detail(username);
+        accountServer.deleteeAccount(b);
+        map.put("user",b);
+        return "get_detail";
+    }
+
+
+    //获取修改用户信息的界面
+    @RequestMapping(value={"/updata_info"},method = RequestMethod.GET)
+    public String updata_info(String username,Map<String, Account> map){
+        Account a = gymService.get_detail(username);
+        map.put("user",a);
+        return "account_updata";
     }
 
     @RequestMapping(value={"","/","/index"},method = RequestMethod.POST)

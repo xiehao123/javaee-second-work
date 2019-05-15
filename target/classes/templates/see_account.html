@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:>
+<head>
+    <meta charset="UTF-8">
+    <title>所有账户信息</title>
+</head>
+<body>
+    <h1>这里有所有的账户信息</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    用户名
+                </th>
+                <!--<th>-->
+                    <!--手机-->
+                <!--</th>-->
+                <!--<th>-->
+                    <!--通信地址-->
+                <!--</th>-->
+                <th>
+                    密码
+                </th>
+                <th>
+                    详细信息
+                </th>
+                <th>
+                    删除账号
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user:${alluser}">
+                <td th:text = "${user.username}"></td>
+                <!--<td th:text = "${user.mobileNumber}"></td>-->
+                <!--<td th:text = "${user.address}"></td>-->
+                <td th:text = "${user.password}"></td>
+                <td>
+                    <a  th:href="@{'/account?username='+${user.username}}">详情</a>
+                </td>
+                <td>
+                    <button onclick="Daccount(event)" th:name ="${user.username}" value = "1">删除账号</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script type="text/javascript" src="../static/js/jquery-2.1.4.min.js" th:src="@{js/jquery-2.1.4.min.js}"></script>
+
+    <script>
+        function Daccount(event){
+            var obj=event.srcElement.getAttribute("name")
+            console.log(obj)
+            $.ajax({
+                url: '/account',
+                type: 'DELETE',
+                data: {username:obj}
+            });
+        }
+    </script>
+
+
+
+
+</body>
+
+</html>
