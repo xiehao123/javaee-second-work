@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteRepositoriesConfiguration">
+    <remote-repository>
+      <option name="id" value="abe66eba-9853-42ca-9d8b-f589af52f6c3" />
+      <option name="name" value="abe66eba-9853-42ca-9d8b-f589af52f6c3" />
+      <option name="url" value="https://maven.aliyun.com/repository/central" />
+    </remote-repository>
+  </component>
+</project>
